@@ -25,11 +25,11 @@
       get doneTasks() {
         return this.done.length
       }
-    },
-    tasksList = document.getElementById("app__list"),
-    allTasks = document.getElementById("js-all-tasks"),
-    doneTasks = document.getElementById("js-done-tasks"),
-    addNewTaskField = document.getElementById("app__task-new")
+    }
+  let tasksList = document.getElementById("app__list")
+  let allTasks = document.getElementById("js-all-tasks")
+  let doneTasks = document.getElementById("js-done-tasks")
+  let addNewTaskField = document.getElementById("app__task-new")
 
   function INIT() {
     for (const item of tasks.current) {
@@ -43,9 +43,9 @@
   }
 
   function createItem(el) {
-    let item = document.createElement("li"),
-      remove = document.createElement("div"),
-      text = document.createElement("span")
+    let item = document.createElement("li")
+    let remove = document.createElement("div")
+    let text = document.createElement("span")
     remove.classList.add("app__list-remove")
     remove.addEventListener("click", function() {
       removeTask(this)
@@ -69,16 +69,18 @@
   }
 
   function doneTask(el) {
-    let elem = el.parentNode,
-      elemId = elem.id,
-      elemState = elem.classList.contains("app__list-item--done")
+    let elem = el.parentNode
+    let elemId = elem.id
+    let elemState = elem.classList.contains("app__list-item--done")
 
     const [itemsRemove, itemsAdd] = elemState
       ? [tasks.done, tasks.current]
       : [tasks.current, tasks.done]
     elem.classList.toggle("app__list-item--done")
     for (const [index, item] of itemsRemove.entries()) {
-      if (item.taskId !== elemId) continue
+      if (item.taskId !== elemId) {
+        continue
+      }
       itemsAdd.push(item)
       itemsRemove.splice(index, 1)
     }
@@ -86,14 +88,16 @@
   }
 
   function removeTask(el) {
-    let removeEl = el.parentNode,
-      removeElId = removeEl.id,
-      removeElState = removeEl.classList.contains("app__list-item--done")
+    let removeEl = el.parentNode
+    let removeElId = removeEl.id
+    let removeElState = removeEl.classList.contains("app__list-item--done")
 
     removeEl.remove()
     const items = removeElState ? tasks.done : tasks.current
     for (const [index, item] of items.entries()) {
-      if (item.taskId !== removeElId) continue
+      if (item.taskId !== removeElId) {
+        continue
+      }
       items.splice(index, 1)
     }
     allTasks.innerHTML = tasks.allTasks
